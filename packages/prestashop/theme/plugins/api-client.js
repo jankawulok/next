@@ -1,4 +1,4 @@
-import { setup } from '@vue-storefront/boilerplate-api';
+import { setup } from '@jkawulok/ps-api';
 
 const config = {};
 setup(config);

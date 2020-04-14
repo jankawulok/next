@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/boilerplate-api",
+  "name": "@jkawulok/ps-api",
   "version": "0.0.1",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
