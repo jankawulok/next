@@ -1,5 +1,5 @@
 {
-  "name": "@vue-storefront/boilerplate-composables",
+  "name": "@jkawulok/ps-composables",
   "version": "0.0.1",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@vue-storefront/boilerplate-api": "^0.0.1",
+    "@jkawulok/ps-api": "^0.0.1",
     "@vue-storefront/interfaces": "^0.0.3",
     "@vue/composition-api": "^0.3.4"
   },
