@@ -1,8 +1,18 @@
 import { CategoryGetters, AgnosticCategoryTree } from '@vue-storefront/interfaces';
-import { Category } from '@vue-storefront/boilerplate-api/src/types';
+import { Category } from '@jkawulok/prestashop-api/src/types/GraphQlCatalog';
 
-export const getCategoryTree = (category: Category): AgnosticCategoryTree => {
-  return {} as AgnosticCategoryTree;
+export const getCategoryTree = (category: Category): AgnosticCategoryTree | null => {
+  const buildTree = (rootCategory: Category) => ({
+    label: rootCategory.name,
+    slug: rootCategory.url_key,
+    items: rootCategory.children.map(buildTree)
+  });
+
+  if (!category) {
+    return null;
+  }
+
+  return buildTree(category);
 };
 
 const categoryGetters: CategoryGetters<Category> = {
