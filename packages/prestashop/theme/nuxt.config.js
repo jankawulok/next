@@ -23,18 +23,20 @@ export default {
       coreDevelopment: true,
       useRawSource: {
         dev: [
-          '@vue-storefront/boilerplate-composables'
+          '@jkawulok/prestashop-composables'
         ],
         prod: [
-          '@vue-storefront/boilerplate-composables'
+          '@jkawulok/prestashop-composables'
         ]
       }
     }],
     ['@vue-storefront/nuxt-theme', {
-      apiClient: '@jkawulok/ps-api',
-      composables: '@jkawulok/ps-composables'
+      apiClient: '@jkawulok/prestashop-api',
+      composables: '@jkawulok/prestashop-composables'
     }]
   ],
-  plugins: [],
+  plugins: [
+    './plugins/prestashop.js'
+  ],
   build: {}
 };

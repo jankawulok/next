@@ -14,7 +14,7 @@ jest.mock('@vue-storefront/commercetools-api', () => ({
 }));
 
 jest.mock('@vue-storefront/factories', () => ({
-  useCartFactory: (params) => () => params,
+  useCartFactory: (params) => () => params
 }));
 
 describe('[commercetools-composables] useCart', () => {

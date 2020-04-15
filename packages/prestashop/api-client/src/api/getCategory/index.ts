@@ -13,8 +13,13 @@ interface CategoryData {
   }
 
 const getCategory = async (
-  search: CategorySearch
+  search?: CategorySearch
 ): Promise<ApolloQueryResult<CategoryData>> => {
+  if (!search) {
+    return await catalogClient.query<CategoryData>({
+      query: defaultQuery
+    });
+  }
   if (search.customQuery) {
     const { query, variables } = search.customQuery;
 
@@ -23,6 +28,8 @@ const getCategory = async (
       variables
     });
   }
+  console.log(defaultQuery);
+  console.log(search);
   return await catalogClient.query<CategoryData>({
     query: defaultQuery,
     variables: search

@@ -1,23 +1,34 @@
-import { UseProduct } from '@vue-storefront/interfaces';
-import { ref, Ref } from '@vue/composition-api';
-import { ProductVariant } from '@vue-storefront/boilerplate-api/src/types';
+import { getProduct } from '@jkawulok/prestashop-api';
+import { Product } from './../types/GraphQlCatalog';
+import { useProductFactory } from '@vue-storefront/factories';
+import { SearchResult } from '@vue-storefront/interfaces';
 
-// Product-specific typings.
-// Those inetrfaces are just recommendations.
-// Feel free to update them to match your platform specification.
-
-export default function useProduct(): UseProduct<ProductVariant> {
-  const products: Ref<ProductVariant[]> = ref([]);
-  const loading: Ref<boolean> = ref(false);
-  const error: Ref<string> = ref(null);
-
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const search = async (params) => {};
-
-  return {
-    products,
-    search,
-    loading,
-    error
+const productsSearch = async (params: {
+  perPage?: number;
+  page?: number;
+  sort?: any;
+  term?: any;
+  filters?: any;
+  catId?: string | string[];
+  skus?: string[];
+  slug?: string;
+  id?: string;
+}): Promise<SearchResult<Product>> => {
+  const apiSearchParams = {
+    ...params
   };
-}
+
+  const productResponse = await getProduct(apiSearchParams);
+  return {
+    data: productResponse.data.products.items,
+    total: productResponse.data.products.total_count
+  };
+};
+
+export default useProductFactory<Product, {
+  perPage?: number;
+  page?: number;
+  sort?: any;
+  term?: any;
+  filters?: any;
+}>({ productsSearch });

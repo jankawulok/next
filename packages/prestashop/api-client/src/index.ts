@@ -4,6 +4,8 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { SetupConfig, SetupResponse } from './types/setup';
 import getProduct from './api/getProduct';
 import getCategory from './api/getCategory';
+import addToCart from './api/addToCart';
+import getCart from './api/getCart';
 import fetch from 'isomorphic-fetch';
 
 let catalogClient: ApolloClient<any> = null;
@@ -40,5 +42,7 @@ export {
   storefrontClient,
   getProduct,
   getCategory,
+  getCart,
+  addToCart,
   setup
 };

@@ -1,45 +1,51 @@
-/* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
+/* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/camelcase, camelcase */
 import { UseCart } from '@vue-storefront/interfaces';
-import { Ref, ref } from '@vue/composition-api';
-import { Cart, ProductVariant } from '@vue-storefront/boilerplate-api/src/types';
+import { getCart, addToCart as apiAddToCart } from '@jkawulok/prestashop-api';
 
-// Cart-specific typings.
-// Those inetrfaces are just recommendations.
-// Feel free to update them to match your platform specification.
-type AddToCart = (product: ProductVariant, quantity: number) => void
-type RemoveFromCart = (product: ProductVariant) => void
-type ClearCart = () => void
-type Coupon = string
-type ApplyCoupon = (coupon: string) => void
-type RemoveCoupon = () => void
+import { Product, Cart, CartItem } from './../types/GraphQlStorefront';
+import { useCartFactory, UseCartFactoryParams} from '@vue-storefront/factories';
+import { ref, Ref } from '@vue/composition-api';
 
-// This state will be shared between all 'useCart` instances.
-const cart: Ref<Cart> = ref(null);
-const loading: Ref<boolean> = ref(true);
-const error: Ref<any> = ref(null);
-const coupon: Ref<Coupon> = ref(null);
+export const cart: Ref<Cart> = ref(null);
 
-const addToCart: AddToCart = (product) => {};
-const removeFromCart: RemoveFromCart = (product) => {};
-const clearCart: ClearCart = () => {};
-const applyCoupon: ApplyCoupon = () => {};
-const removeCoupon: RemoveCoupon = () => {};
+const params: UseCartFactoryParams<Cart, CartItem, Product, any> = {
+  cart,
+  loadCart: async () => {
+    const cartResponse = await getCart();
+    return cartResponse.data.cart;
+  },
+  addToCart: async ({ product, quantity }) => {
+    const updatedCart = await apiAddToCart({
+      id: product.id,
+      quantity: quantity,
+      id_product_attribute: 0
+    });
+    return updatedCart.data.cart;
+  },
+  removeFromCart: async ({ currentCart, product }) => {
+    // const updateResponse = await apiRemoveFromCart(product);
+    // return updateResponse.data.cart;
+    return currentCart;
+  },
+  updateQuantity: async ({ currentCart, product, quantity }) => {
+    // const updatedCart = await apiUpdateCartQuantity(product, quantity);
+    // return updatedCart.data.cart;
+    return currentCart;
+  },
+  clearCart: async ({ currentCart }) => {
+    return currentCart;
+  },
+  applyCoupon: async ({ currentCart, coupon }) => {
+    return { updatedCart: currentCart, updatedCoupon: coupon };
+  },
+  removeCoupon: async ({ currentCart }) => {
+    return { updatedCart: currentCart, updatedCoupon: null };
+  },
+  isOnCart: ({ currentCart }) => {
+    console.log('Mocked isOnCart', currentCart);
+    return true;
+  }
+};
 
-async function loadCart() {
-  // get cart id / user id from useUser or localStorage and load it to `cart` variable
-  loading.value = false;
-}
-
-export default function useCart(): UseCart<Cart, AddToCart, RemoveFromCart, ClearCart, Ref<Coupon>, ApplyCoupon, RemoveCoupon> {
-  return {
-    cart,
-    addToCart,
-    removeCoupon,
-    clearCart,
-    coupon,
-    applyCoupon,
-    removeFromCart,
-    error,
-    loading
-  };
-}
+const useCart: () => UseCart<Cart, CartItem, Product, any> = useCartFactory<Cart, CartItem, Product, any>(params);
+export default useCart;
