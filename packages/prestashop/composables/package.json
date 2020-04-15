@@ -1,5 +1,5 @@
 {
-  "name": "@jkawulok/ps-composables",
+  "name": "@jkawulok/prestashop-composables",
   "version": "0.0.1",
   "sideEffects": false,
   "main": "lib/index.cjs.js",
@@ -11,7 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@jkawulok/ps-api": "^0.0.1",
+    "@jkawulok/prestashop-api": "^0.0.1",
     "@vue-storefront/interfaces": "^0.0.3",
     "@vue/composition-api": "^0.3.4"
   },
