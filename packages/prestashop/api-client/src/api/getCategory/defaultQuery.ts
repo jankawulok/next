@@ -10,12 +10,6 @@ fragment ChildrenCategory on Category {
     name
 }
 
-fragment DefaultCategory on Category {
-    id
-    url_key
-    description
-}
-
 query categories(
   $search: String, 
   $filter: CategoryFilterInput, 
@@ -44,7 +38,10 @@ query categories(
         filter: $productsFilter,
         sort: $productsSort
         ) {
-        total_count
+        total_count {
+         value
+         relation
+        }
         items {
           ...ProductTile
         }
