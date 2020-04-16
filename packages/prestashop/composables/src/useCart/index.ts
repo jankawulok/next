@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/camelcase, camelcase */
-import { UseCart } from '@vue-storefront/interfaces';
+import { UseCart } from '@vue-storefront/core';
 import { getCart, addToCart as apiAddToCart } from '@jkawulok/prestashop-api';
 
 import { Product, Cart, CartItem } from './../types/GraphQlStorefront';

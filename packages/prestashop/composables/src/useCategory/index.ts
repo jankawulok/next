@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
-import { UseCategory } from '@vue-storefront/interfaces';
+import { UseCategory } from '@vue-storefront/core';
 import { ref, Ref } from '@vue/composition-api';
 import { getCategory} from '@jkawulok/prestashop-api';
 import { Category } from './../types/GraphQlCatalog';

@@ -4,16 +4,6 @@ import { catalogClient } from '../../../src/index';
 import defaultQuery from '../../../src/api/getCategory/defaultQuery';
 
 describe('[prestashop-api-client] getCategory', () => {
-  it('fetches category', async () => {
-    const data = await getCategory({
-      filter: {
-        id: {
-          eq: '2'
-        }
-      }
-    });
-    console.log(data);
-  });
 
   it('fetches categories without search parameters', async () => {
     const givenVariables = {};
@@ -47,7 +37,6 @@ describe('[prestashop-api-client] getCategory', () => {
     });
 
     const { data } = await getCategory({filter: { id: { eq: '2' } }});
-    console.log(data);
     expect(data).toBe('category response');
   });
 
@@ -93,7 +82,6 @@ describe('[prestashop-api-client] getCategory', () => {
 
     const { data } = await getCategory({ customQuery: { query: givenQuery,
       variables: givenVariables} });
-    console.log(data);
     expect(data).toBe('category response');
   });
 });

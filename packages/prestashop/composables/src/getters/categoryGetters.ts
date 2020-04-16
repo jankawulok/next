@@ -1,4 +1,4 @@
-import { CategoryGetters, AgnosticCategoryTree } from '@vue-storefront/interfaces';
+import { CategoryGetters, AgnosticCategoryTree } from '@vue-storefront/core';
 import { Category } from '@jkawulok/prestashop-api/src/types/GraphQlCatalog';
 
 export const getCategoryTree = (category: Category): AgnosticCategoryTree | null => {

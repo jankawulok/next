@@ -1,4 +1,4 @@
-import { UseCheckout } from '@vue-storefront/interfaces';
+import { UseCheckout } from '@vue-storefront/core';
 import { ref, Ref } from '@vue/composition-api';
 
 export const paymentMethods: Ref<any[]> = ref([]);

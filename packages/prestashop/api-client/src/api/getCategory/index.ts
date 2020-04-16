@@ -28,8 +28,6 @@ const getCategory = async (
       variables
     });
   }
-  console.log(defaultQuery);
-  console.log(search);
   return await catalogClient.query<CategoryData>({
     query: defaultQuery,
     variables: search

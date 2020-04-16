@@ -1,6 +1,6 @@
 import { setup } from './../src/index';
 
-// jest.mock('apollo-client');
+jest.mock('apollo-client');
 
 setup({
   api: {

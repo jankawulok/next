@@ -23,10 +23,12 @@ export default {
       coreDevelopment: true,
       useRawSource: {
         dev: [
-          '@jkawulok/prestashop-composables'
+          '@jkawulok/prestashop-composables',
+          '@vue-storefront/core'
         ],
         prod: [
-          '@jkawulok/prestashop-composables'
+          '@jkawulok/prestashop-composables',
+          '@vue-storefront/core'
         ]
       }
     }],
