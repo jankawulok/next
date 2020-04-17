@@ -1,9 +1,8 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars */
-import { UseCategory } from '@vue-storefront/core';
+import { UseCategory, useCategoryFactory, UseCategoryFactoryParams } from '@vue-storefront/core';
 import { ref, Ref } from '@vue/composition-api';
 import { getCategory} from '@jkawulok/prestashop-api';
 import { Category } from './../types/GraphQlCatalog';
-import { useCategoryFactory, UseCategoryFactoryParams } from '@vue-storefront/factories';
 
 const params: UseCategoryFactoryParams<Category, any> = {
   categorySearch: async (params) => {

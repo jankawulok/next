@@ -1,7 +1,6 @@
 import { getProduct } from '@jkawulok/prestashop-api';
 import { Product } from './../types/GraphQlCatalog';
-import { useProductFactory } from '@vue-storefront/factories';
-import { SearchResult } from '@vue-storefront/core';
+import { SearchResult, useProductFactory } from '@vue-storefront/core';
 
 const productsSearch = async (params: {
   perPage?: number;

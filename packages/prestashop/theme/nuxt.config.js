@@ -1,3 +1,5 @@
+import webpack from 'webpack';
+
 export default {
   mode: 'universal',
   server: {
@@ -17,8 +19,9 @@ export default {
   },
   loading: { color: '#fff' },
   router: {},
-  buildModules: ['@nuxt/typescript-build'],
-  modules: [
+  buildModules: [
+    // to core
+    '@nuxt/typescript-build',
     ['@vue-storefront/nuxt', {
       coreDevelopment: true,
       useRawSource: {
@@ -37,8 +40,26 @@ export default {
       composables: '@jkawulok/prestashop-composables'
     }]
   ],
+  modules: [
+    'nuxt-i18n',
+    'cookie-universal-nuxt',
+    'vue-scrollto/nuxt'
+  ],
   plugins: [
     './plugins/prestashop.js'
   ],
-  build: {}
+  build: {
+    transpile: [
+      'vee-validate/dist/rules'
+    ],
+    plugins: [
+      new webpack.DefinePlugin({
+        'process.VERSION': JSON.stringify({
+          // eslint-disable-next-line global-require
+          version: require('./package.json').version,
+          lastCommit: process.env.LAST_COMMIT || ''
+        })
+      })
+    ]
+  }
 };

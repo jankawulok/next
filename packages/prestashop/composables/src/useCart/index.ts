@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/camelcase, camelcase */
-import { UseCart } from '@vue-storefront/core';
+import { UseCart, useCartFactory, UseCartFactoryParams } from '@vue-storefront/core';
 import { getCart, addToCart as apiAddToCart } from '@jkawulok/prestashop-api';
-
 import { Product, Cart, CartItem } from './../types/GraphQlStorefront';
-import { useCartFactory, UseCartFactoryParams} from '@vue-storefront/factories';
 import { ref, Ref } from '@vue/composition-api';
 
 export const cart: Ref<Cart> = ref(null);
