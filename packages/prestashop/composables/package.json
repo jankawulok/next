@@ -1,0 +1,26 @@
+{
+  "name": "@jkawulok/prestashop-composables",
+  "version": "0.0.1",
+  "sideEffects": false,
+  "main": "lib/index.cjs.js",
+  "module": "lib/index.es.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@jkawulok/prestashop-api": "^0.0.1",
+    "@vue-storefront/core": "^2.0.0",
+    "@vue/composition-api": "^0.3.4",
+    "vue": "^2.6.x"
+  },
+  
+  "files": [
+    "lib/**/*"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
+}
