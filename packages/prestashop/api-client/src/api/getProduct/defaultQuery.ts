@@ -11,7 +11,10 @@ export default gql`
       $sort: ProductSortInput
     ){
     products(search: $search, filter: $filter, sort: $sort, pageSize: $pageSize, currentPage: $currentPage) {
-      total_count
+      total_count {
+         value
+         relation
+        }
       items {
         ...ProductFragment
       }

@@ -4,42 +4,50 @@ import {
   AgnosticPrice,
   ProductGetters
 } from '@vue-storefront/core';
-import { ProductVariant } from '@vue-storefront/boilerplate-api/src/types';
+import { Product, MediaGalleryItem } from './../types/GraphQlCatalog';
 
 type ProductVariantFilters = any
 
 // TODO: Add interfaces for some of the methods in core
 // Product
-export const getProductName = (product: ProductVariant): string => 'product name';
+export const getProductName = (product: Product): string => product ? (product as any).name : '';
 
-export const getProductSlug = (product: ProductVariant): string => 'product-slug';
+export const getProductSlug = (product: Product): string => product ? (product as any).id : '';
 
-export const getProductPrice = (product: ProductVariant): AgnosticPrice => {
+export const getProductPrice = (product: Product): AgnosticPrice => {
+  const price = product ? product.price_incl_tax : null;
+
   return {
-    regular: 0,
-    special: 0
+    regular: price,
+    special: price
   };
 };
 
-export const getProductGallery = (product: ProductVariant): AgnosticMediaGalleryItem[] => [];
+export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] =>
+  (product ? product.media_gallery : [])
+    .map((image: MediaGalleryItem) => ({
+      small: image.url,
+      big: image.url,
+      normal: image.url
+    }));
 
-export const getProductCoverImage = (product: ProductVariant): string => '';
-
-export const getProductFiltered = (products: ProductVariant[], filters: ProductVariantFilters | any = {}): ProductVariant[] => {
+export const getProductCoverImage = (product: Product): string => product ? (product as any).image : '';
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+export const getProductFiltered = (products: Product[], filters: ProductVariantFilters | any = {}): Product[] => {
   return products;
 };
-
-export const getProductAttributes = (products: ProductVariant[] | ProductVariant, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
+// eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+export const getProductAttributes = (products: Product[] | Product, filterByAttributeName?: string[]): Record<string, AgnosticAttribute | string> => {
   return {};
 };
 
-export const getProductDescription = (product: ProductVariant): any => (product as any)._description;
+export const getProductDescription = (product: Product): any => (product as any).description;
 
-export const getProductCategoryIds = (product: ProductVariant): string[] => (product as any)._categoriesRef;
+export const getProductCategoryIds = (product: Product): string[] => (product as any).category_ids;
 
-export const getProductId = (product: ProductVariant): string => (product as any)._id;
+export const getProductId = (product: Product): string => (product as any).id;
 
-const productGetters: ProductGetters<ProductVariant, ProductVariantFilters> = {
+const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getName: getProductName,
   getSlug: getProductSlug,
   getPrice: getProductPrice,

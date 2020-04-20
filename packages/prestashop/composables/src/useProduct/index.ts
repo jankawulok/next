@@ -7,6 +7,7 @@ const productsSearch = async (params: {
   page?: number;
   sort?: any;
   term?: any;
+  search?: string;
   filters?: any;
   catId?: string | string[];
   skus?: string[];
@@ -20,7 +21,7 @@ const productsSearch = async (params: {
   const productResponse = await getProduct(apiSearchParams);
   return {
     data: productResponse.data.products.items,
-    total: productResponse.data.products.total_count
+    total: productResponse.data.products.total_count.value
   };
 };
 
