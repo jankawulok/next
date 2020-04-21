@@ -4,6 +4,7 @@ export const ProductTileFragment = `
     name
     price
     price_incl_tax
+    image
     media_gallery {
       image
       label

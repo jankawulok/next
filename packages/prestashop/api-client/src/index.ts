@@ -11,6 +11,13 @@ import fetch from 'isomorphic-fetch';
 let catalogClient: ApolloClient<any> = null;
 let storefrontClient: ApolloClient<any> = null;
 
+const locale = 'pl';
+const currency = 'PLN';
+const country = 'PL';
+const countries = [];
+const currencies = [];
+const locales = [];
+
 const setup = <TCacheShape>(setupConfig?: SetupConfig<TCacheShape>): SetupResponse<TCacheShape> => {
   catalogClient = new ApolloClient({
     link: createHttpLink({ uri: setupConfig.api.catalogUri, fetch }),
@@ -44,5 +51,11 @@ export {
   getCategory,
   getCart,
   addToCart,
-  setup
+  setup,
+  locale,
+  locales,
+  country,
+  countries,
+  currency,
+  currencies
 };
