@@ -125,14 +125,14 @@
               <template>
                 <SfList>
                   <SfListItem>
-                    <SfMenuItem :label="cat.label">
+                    <SfMenuItem :label="cat.label" :count="cat.productCount">
                       <template #label>
-                        <nuxt-link :to="getCategoryUrl(cat.slug)" :class="isCategorySelected(cat.slug) ? 'sidebar--cat-selected' : ''">All</nuxt-link>
+                        <nuxt-link :to="getCategoryUrl(cat.slug)" :class="isCategorySelected(cat.slug) ? 'sidebar--cat-selected' : ''">Wszystkie</nuxt-link>
                       </template>
                     </SfMenuItem>
                   </SfListItem>
                   <SfListItem v-for="(subCat, j) in cat.items" :key="j">
-                    <SfMenuItem :label="subCat.label">
+                    <SfMenuItem :label="subCat.label" :count="subCat.productCount">
                       <template #label="{ label }">
                         <nuxt-link :to="getCategoryUrl(subCat.slug)" :class="isCategorySelected(subCat.slug) ? 'sidebar--cat-selected' : ''">{{ label }}</nuxt-link>
                       </template>
@@ -142,7 +142,7 @@
               </template>
             </SfAccordionItem>
           </SfAccordion>
-          
+
         </SfLoader>
       </div>
       <div class="products">
@@ -315,7 +315,7 @@ import {
   SfColor
 } from '@storefront-ui/vue';
 import { computed, ref, watch } from '@vue/composition-api';
-import { useCategory, useProduct, productGetters, categoryGetters } from '@jkawulok/prestashop-composables';
+import { useCategory, productGetters, categoryGetters } from '@jkawulok/prestashop-composables';
 import { getCategorySearchParameters } from '~/helpers/category/getCategorySearchParameters';
 import { onSSR } from '@vue-storefront/core';
 
@@ -374,7 +374,7 @@ function clearAllFilters() {
 export default {
   transition: 'fade',
   setup(props, context) {
-    const { params, query } = context.root.$route;
+    const { query } = context.root.$route;
 
     const { categories, search, loading } = useCategory('categories');
     const currentPage = ref(parseInt(query.page, 10) || 1);
@@ -400,19 +400,19 @@ export default {
         }});
       }
     });
-    const category = computed(() => categoryGetters.getFiltered(categories.value[0] ?categories.value[0] : []));
-    const products = computed(() => productGetters.getFiltered(categories.value[0] ?categories.value[0].products.items : [], { master: true}));
+    const category = computed(() => categoryGetters.getFiltered(categories.value[0] ? categories.value[0] : []));
+    const products = computed(() => productGetters.getFiltered(categories.value[0] ? categories.value[0].products.items : [], { master: true}));
     const totalProducts = computed(() =>categories.value[0] ? categories.value[0].products.total_count.value : 0);
-    // const categoryTree = computed(() => categoryGetters.getTree(categories.value[0]));
-    const categoryTree  = [];
-    const getCategoryUrl = (slug) => `/c/${params.slug_1}/${slug}`;
+    const categoryTree = computed(() => categoryGetters.getTree(categories.value[0] ? categories.value[0] : []));
+    // const categoryTree  = [];
+    const getCategoryUrl = (slug) => `/c/${slug}`;
     const isCategorySelected = (slug) => slug === (categories.value && categories.value[0].slug);
 
     // todo: calculate breadcrumbs server side
     const breadcrumbs = computed(() => [
       { text: 'Home', route: { link: '/' } },
       { text: categories.value[0] ? categories.value[0].name : '', route: { link: '#' } }
-    ]); 
+    ]);
     const sortBy = ref('price-up');
     const isGridView = ref(true);
     const isFilterSidebarOpen = ref(false);

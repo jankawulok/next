@@ -8,6 +8,7 @@ fragment ChildrenCategory on Category {
     id
     url_key
     name
+    product_count
 }
 
 query categories(
@@ -27,9 +28,16 @@ query categories(
       id
       url_key
       name
+      product_count
       description
       children {
+        id
+        url_key
+        name
+        product_count
+        children {
           ...ChildrenCategory
+        }
       }
       products(
         pageSize: $productsResultSize, 

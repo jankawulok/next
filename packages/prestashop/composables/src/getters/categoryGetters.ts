@@ -6,16 +6,15 @@ export const getCategoryName = (category: Category): string => category ? (categ
 export const getCategoryDescription = (category: Category): string => category ? (category as any).description : '';
 
 export const getCategoryTree = (category: Category): AgnosticCategoryTree | null => {
-  const buildTree = (rootCategory: Category) => ({
-    label: rootCategory.name,
-    slug: rootCategory.url_key,
-    items: rootCategory.children.map(buildTree)
-  });
-
   if (!category) {
     return null;
   }
-
+  const buildTree = (category: Category) => ({
+    label: category.name,
+    slug: category.url_key,
+    items: category.children ? category.children.map(buildTree) : [],
+    productCount: category.product_count
+  });
   return buildTree(category);
 };
 
