@@ -32,20 +32,28 @@
         </nuxt-link>
       </SfHeaderNavigationItem>
     </template>
+    <template #search>
+      <SfSearchBar
+      placeholder="szukaj..."
+      v-model="searchState.query"
+    />
+    </template>
   </SfHeader>
 </template>
 
 <script>
-import { SfHeader, SfImage } from '@storefront-ui/vue';
+import { SfHeader, SfImage, SfSearchBar } from '@storefront-ui/vue';
 import uiState from '~/assets/ui-state';
 import { useCart, useUser, cartGetters } from '@jkawulok/prestashop-composables';
 import { computed } from '@vue/composition-api';
 const { toggleCartSidebar, toggleLoginModal } = uiState;
+import searchState from '~/assets/search-state';
 
 export default {
   components: {
     SfHeader,
-    SfImage
+    SfImage,
+    SfSearchBar
   },
   setup(props, { root }) {
     const { isAuthenticated } = useUser();
@@ -58,11 +66,14 @@ export default {
       // TODO: remove once resolved by UI team: https://github.com/DivanteLtd/storefront-ui/issues/922
       return count ? count.toString() : null;
     });
+
     return {
       cartTotalItems,
       toggleLoginModal,
       onAccountClicked,
-      toggleCartSidebar
+      toggleCartSidebar,
+      uiState,
+      searchState
     };
   }
 };

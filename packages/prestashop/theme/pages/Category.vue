@@ -146,6 +146,7 @@
         </SfLoader>
       </div>
       <div class="products">
+        <h3 v-if="searchState.query !== ''">szukaj: <strong>{{searchState.query}}</strong> w kategorii {{ categoryGetters.getName(category)}}</h3>
         <SfLoader :class="{ loading }" :loading="loading">
           <div
             v-if="isGridView"
@@ -292,7 +293,7 @@
       </div>
     </SfSidebar>
     <div class="description">
-      <div v-html="categoryGetters.getDescription(category)"/>
+      <!-- <div v-html="categoryGetters.getDescription(category)"/> -->
     </div>
   </div>
 </template>
@@ -318,6 +319,7 @@ import { computed, ref, watch } from '@vue/composition-api';
 import { useCategory, productGetters, categoryGetters } from '@jkawulok/prestashop-composables';
 import { getCategorySearchParameters } from '~/helpers/category/getCategorySearchParameters';
 import { onSSR } from '@vue-storefront/core';
+import searchState from '~/assets/search-state';
 
 const perPageOptions = [40, 80, 100];
 
@@ -386,13 +388,13 @@ export default {
         productsResultSize: itemsPerPage.value
       });
     });
-
-    watch([currentPage, itemsPerPage], () => {
+    watch([currentPage, itemsPerPage, () => searchState.query], () => {
       if (categories.value.length) {
         search({
           ...getCategorySearchParameters(context),
           productsResultPage: currentPage.value,
-          productsResultSize: itemsPerPage.value
+          productsResultSize: itemsPerPage.value,
+          productsSearchQuery: searchState.query
         });
         context.root.$router.push({ query: {
           items: itemsPerPage.value !== perPageOptions[0] ? itemsPerPage.value : undefined,
@@ -416,7 +418,6 @@ export default {
     const sortBy = ref('price-up');
     const isGridView = ref(true);
     const isFilterSidebarOpen = ref(false);
-
     function toggleWishlist(index) {
       products.value[index].isOnWishlist = !this.products.value[index].isOnWishlist;
     }
@@ -449,7 +450,8 @@ export default {
       clearAllFilters,
       toggleWishlist,
       isGridView,
-      goToPage
+      goToPage,
+      searchState
     };
   },
   components: {
@@ -478,6 +480,9 @@ export default {
   @include for-desktop {
     max-width: 1240px;
     margin: 0 auto;
+  }
+  .description {
+    margin-top: var(--spacer-big);
   }
 }
 .section {
