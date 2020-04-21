@@ -89,4 +89,10 @@ sw.*
 # Vim swap files
 *.swp
 
+# storefront theme output
+.theme
+
+
 version
+
+.now
