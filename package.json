@@ -22,7 +22,7 @@
     "build:ct": "yarn build:core && yarn build:ct:tools && yarn build:ct:theme",
     "build:ps:api-client": "cd packages/prestashop/api-client && yarn build",
     "build:ps:composables": "cd packages/prestashop/composables && yarn build",
-    "build:ps": "yarn build:core && yarn build:prestashop:api-client && yarn build:prestashop:composables",
+    "build:ps": "yarn build:core && yarn build:ps:api-client && yarn build:ps:composables",
     "test:ay:api-client": "cd packages/about-you/api-client && yarn test --coverage",
     "test:ay:composables": "cd packages/about-you/composables && yarn test --coverage",
     "test:ct:api-client": "cd packages/commercetools/api-client && yarn test --coverage",
