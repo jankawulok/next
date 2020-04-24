@@ -9,6 +9,13 @@ import { Product, MediaGalleryItem } from './../types/GraphQlCatalog';
 
 type ProductVariantFilters = any
 
+type AgnosticBreadcrumbsItem = {
+  text: string;
+  route: {
+    link: string;
+  };
+}
+
 // TODO: Add interfaces for some of the methods in core
 // Product
 export const getProductName = (product: Product): string => product ? (product as any).name : '';
@@ -16,13 +23,28 @@ export const getProductName = (product: Product): string => product ? (product a
 export const getProductSlug = (product: Product): string => product ? (product as any).id : '';
 
 export const getProductPrice = (product: Product): AgnosticPrice => {
-  const price = product ? product.price_incl_tax : null;
-
+  const price = product ? product.original_price_incl_tax : null;
+  const special = product ? product.special_price_incl_tax : null;
   return {
     regular: price,
-    special: price
+    special: (special !== 0) && (special !== price) ? special : null
   };
 };
+
+export const getProductStock = (product: Product): number => product && product.stock && product.stock.qty ? product.stock.qty : 0;
+
+export const getProductRating = (product: Product): number => product && (product as any).rating && ((product as any).rating !== 0) ? (product as any).rating : null;
+
+export const getProductProperties = (product: Product): any => product && product.features ? product.features : [];
+
+export const getProductBreadcrumbs = (product: Product): AgnosticBreadcrumbsItem[] =>
+  (product ? product.breadcrumbs : [])
+    .map((item) => ({
+      text: item.name,
+      route: {
+        link: '/c/' + item.slug
+      }
+    }));
 
 export const getProductGallery = (product: Product): AgnosticMediaGalleryItem[] =>
   (product ? product.media_gallery : [])
@@ -71,6 +93,10 @@ const productGetters: ProductGetters<Product, ProductVariantFilters> = {
   getDescription: getProductDescription,
   getCategoryIds: getProductCategoryIds,
   getReviews: getProductReviews,
+  getBreadcrumbs: getProductBreadcrumbs,
+  getProperties: getProductProperties,
+  getStock: getProductStock,
+  getRating: getProductRating,
   getId: getProductId,
   getFormattedPrice
 };
