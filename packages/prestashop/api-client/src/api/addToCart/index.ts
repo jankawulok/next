@@ -1,14 +1,12 @@
 import { CartMutationResponse } from './../../types/Api';
-import { CartItemInput } from './../../types/GraphQlStorefront';
+import { AddItemsToCartInput } from './../../types/GraphQlStorefront';
 import { storefrontClient } from '../..';
 import defaultMutation from './defaultMutation';
 
-const addToCart = async (item: CartItemInput): Promise<CartMutationResponse> => {
+const addToCart = async (addItemsToCartInput: AddItemsToCartInput): Promise<CartMutationResponse> => {
   return await storefrontClient.mutate({
     mutation: defaultMutation,
-    variables: {
-      input: [item]
-    },
+    variables: {input: addItemsToCartInput},
     fetchPolicy: 'no-cache'
   });
 };

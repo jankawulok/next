@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable camelcase */
 
 export type Maybe<T> = T | null;
@@ -67,6 +68,7 @@ export type CarrierInput = {
 export type Cart = {
    __typename?: 'Cart';
   id?: Maybe<Scalars['Int']>;
+  nbProducts?: Maybe<Scalars['Int']>;
   items: Array<Maybe<CartItem>>;
   total?: Maybe<Scalars['Float']>;
   cartRules: Array<Maybe<CartRule>>;
@@ -98,6 +100,7 @@ export type CartAddressInput = {
 
 export type CartItem = {
    __typename?: 'CartItem';
+  unique_id?: Maybe<Scalars['String']>;
   id_product: Scalars['Int'];
   id_product_attribute: Scalars['Int'];
   cart_quantity: Scalars['Int'];
@@ -106,11 +109,26 @@ export type CartItem = {
   description_short?: Maybe<Scalars['String']>;
   available_now?: Maybe<Scalars['String']>;
   available_later?: Maybe<Scalars['String']>;
-  id_caetgory_default?: Maybe<Scalars['Int']>;
+  id_category_default?: Maybe<Scalars['Int']>;
   id_manufacturer?: Maybe<Scalars['Int']>;
+  on_sale?: Maybe<Scalars['Int']>;
+  ecotax?: Maybe<Scalars['Int']>;
+  additional_shipping_cost?: Maybe<Scalars['String']>;
+  available_for_order?: Maybe<Scalars['Int']>;
+  unity?: Maybe<Scalars['Int']>;
+  unit_price_ratio?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
+  price_wt?: Maybe<Scalars['Float']>;
+  price_without_reduction?: Maybe<Scalars['Float']>;
+  price_with_reduction?: Maybe<Scalars['Float']>;
+  total?: Maybe<Scalars['Float']>;
+  total_wt?: Maybe<Scalars['Float']>;
+  reduction_applies?: Maybe<Scalars['String']>;
+  quantity_discount_applies?: Maybe<Scalars['String']>;
   quantity?: Maybe<Scalars['Int']>;
+  quantity_available?: Maybe<Scalars['Int']>;
   link_rewrite?: Maybe<Scalars['String']>;
+  id_image?: Maybe<Scalars['String']>;
 };
 
 export type CartItemInput = {

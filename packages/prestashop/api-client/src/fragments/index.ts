@@ -4,6 +4,8 @@ export const ProductTileFragment = `
     name
     price
     price_incl_tax
+    original_price_incl_tax
+    special_price_incl_tax
     image
     media_gallery {
       image
@@ -12,6 +14,7 @@ export const ProductTileFragment = `
     stock {
       qty
     }
+    rating
   }
 `;
 
@@ -20,9 +23,16 @@ export const ProductFragment = `
     id
     sku
     description
+    breadcrumbs {
+      category_id
+      name
+      slug
+    }
     short_description
     price
     price_incl_tax
+    original_price_incl_tax
+    special_price_incl_tax
     name
     manufacturer
     meta_title
@@ -37,6 +47,11 @@ export const ProductFragment = `
       qty
       backorders
       max_sale_qty
+    }
+    rating
+    features {
+      name
+      value
     }
     reviews {
       items {

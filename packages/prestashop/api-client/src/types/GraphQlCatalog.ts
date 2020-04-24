@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 /* eslint-disable camelcase */
 
 export type Maybe<T> = T | null;
