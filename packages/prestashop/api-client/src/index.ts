@@ -5,6 +5,7 @@ import { SetupConfig, SetupResponse } from './types/setup';
 import getProduct from './api/getProduct';
 import getCategory from './api/getCategory';
 import addToCart from './api/addToCart';
+import removeFromCart from './api/removeFromCart';
 import getCart from './api/getCart';
 import fetch from 'isomorphic-fetch';
 
@@ -51,6 +52,7 @@ export {
   getCategory,
   getCart,
   addToCart,
+  removeFromCart,
   setup,
   locale,
   locales,

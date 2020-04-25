@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/camelcase, camelcase */
 import { UseCart, useCartFactory, UseCartFactoryParams } from '@vue-storefront/core';
-import { getCart, addToCart as apiAddToCart } from '@jkawulok/prestashop-api';
-import { Product, Cart, CartItem, AddItemsToCartInput } from './../types/GraphQlStorefront';
+import { getCart, addToCart as apiAddToCart, removeFromCart as apiRemoveFromCart } from '@jkawulok/prestashop-api';
+import { Product, Cart, CartItem, AddItemsToCartInput, RemoveItemFromCartInput } from './../types/GraphQlStorefront';
 import { ref, Ref } from '@vue/composition-api';
 
 export const cart: Ref<Cart> = ref(null);
@@ -21,15 +21,16 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, any> = {
           quantity: quantity
         }
       ]
-    });
+    } as AddItemsToCartInput);
     console.log('addToCart', updatedCart);
     return updatedCart.data.cart;
   },
-  removeFromCart: async ({ currentCart, product }) => {
-    // const updateResponse = await apiRemoveFromCart(product);
-    // return updateResponse.data.cart;
-    console.log('Mocked updateQuantity', currentCart);
-    return currentCart;
+  removeFromCart: async ({ product }) => {
+    const updateResponse = await apiRemoveFromCart({
+      idProduct: product.id_product,
+      idProductAttribute: product.id_product_attribute
+    } as RemoveItemFromCartInput);
+    return updateResponse.data.cart;
   },
   updateQuantity: async ({ currentCart, product, quantity }) => {
     // const updatedCart = await apiUpdateCartQuantity(product, quantity);

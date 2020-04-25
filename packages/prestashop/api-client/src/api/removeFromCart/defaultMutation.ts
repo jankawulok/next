@@ -4,8 +4,8 @@ import { CartFragment } from './../../fragments';
 export default gql`
   ${CartFragment}
 
-  query {
-    cart {
+  mutation removeItemFromCart($input: RemoveItemFromCartInput){
+    cart: removeItemFromCart(input: $input) {
       ...DefaultCart
     }
   }

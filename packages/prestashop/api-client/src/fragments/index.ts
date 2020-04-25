@@ -62,3 +62,44 @@ export const ProductFragment = `
     }
   }
 `;
+
+export const CartFragment = `
+  fragment DefaultCart on Cart {
+    total
+    totalProducts
+    totalProductsTaxIncluded
+    shippingCost
+    nbProducts
+    items {
+      unique_id
+      id_product
+      id_product_attribute
+      cart_quantity
+      name
+      is_virtual
+      description_short
+      available_now
+      available_later
+      id_category_default
+      id_manufacturer
+      on_sale
+      ecotax
+      additional_shipping_cost
+      available_for_order
+      unity
+      unit_price_ratio
+      price
+      price_wt
+      price_without_reduction
+      price_with_reduction
+      total
+      total_wt
+      reduction_applies
+      quantity_discount_applies
+      quantity
+      quantity_available
+      link_rewrite
+      id_image
+    }
+  }
+`;
