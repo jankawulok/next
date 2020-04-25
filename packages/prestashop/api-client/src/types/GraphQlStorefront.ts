@@ -71,6 +71,9 @@ export type Cart = {
   nbProducts?: Maybe<Scalars['Int']>;
   items: Array<Maybe<CartItem>>;
   total?: Maybe<Scalars['Float']>;
+  totalProducts?: Maybe<Scalars['Float']>;
+  totalProductsTaxIncluded?: Maybe<Scalars['Float']>;
+  shippingCost?: Maybe<Scalars['Float']>;
   cartRules: Array<Maybe<CartRule>>;
   deliveryAddressId?: Maybe<Scalars['Int']>;
   invoiceAddressId?: Maybe<Scalars['Int']>;
@@ -115,7 +118,7 @@ export type CartItem = {
   ecotax?: Maybe<Scalars['Int']>;
   additional_shipping_cost?: Maybe<Scalars['String']>;
   available_for_order?: Maybe<Scalars['Int']>;
-  unity?: Maybe<Scalars['Int']>;
+  unity?: Maybe<Scalars['String']>;
   unit_price_ratio?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['Float']>;
   price_wt?: Maybe<Scalars['Float']>;
@@ -181,6 +184,14 @@ export type CustomerLoginResponse = {
    __typename?: 'CustomerLoginResponse';
   isLoggedIn?: Maybe<Scalars['Boolean']>;
   token?: Maybe<Scalars['String']>;
+  customer?: Maybe<Customer>;
+};
+
+export type CustomerLogoutResponse = {
+   __typename?: 'customerLogoutResponse';
+  message?: Maybe<Scalars['String']>;
+  isLoggedIn?: Maybe<Scalars['Boolean']>;
+  customer?: Maybe<Customer>;
 };
 
 export type CustomerOutput = {
@@ -220,7 +231,7 @@ export type Mutation = {
   removeUnavailableItems?: Maybe<RemoveUnavailableItemsResponse>;
   customerLogin?: Maybe<CustomerLoginResponse>;
   customerRegister?: Maybe<CustomerOutput>;
-  customerLogout?: Maybe<Scalars['Boolean']>;
+  customerLogout?: Maybe<CustomerLogoutResponse>;
   customerChangePassword?: Maybe<Scalars['Boolean']>;
   customerDeleteAddress?: Maybe<Scalars['Boolean']>;
   customerCreateAddress?: Maybe<Address>;

@@ -6,6 +6,11 @@ import getProduct from './api/getProduct';
 import getCategory from './api/getCategory';
 import addToCart from './api/addToCart';
 import removeFromCart from './api/removeFromCart';
+import applyCoupon from './api/applyCoupon';
+import removeCoupon from './api/removeCoupon';
+import customerLogin from './api/customerLogin';
+import customerCreate from './api/customerCreate';
+import customerLogout from './api/customerLogout';
 import getCart from './api/getCart';
 import fetch from 'isomorphic-fetch';
 
@@ -53,6 +58,11 @@ export {
   getCart,
   addToCart,
   removeFromCart,
+  applyCoupon,
+  removeCoupon,
+  customerLogin,
+  customerLogout,
+  customerCreate,
   setup,
   locale,
   locales,
