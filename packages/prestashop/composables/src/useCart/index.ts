@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars, @typescript-eslint/no-unused-vars, @typescript-eslint/camelcase, camelcase */
 import { UseCart, useCartFactory, UseCartFactoryParams } from '@vue-storefront/core';
-import { getCart, addToCart as apiAddToCart, removeFromCart as apiRemoveFromCart } from '@jkawulok/prestashop-api';
+import { getCart, addToCart as apiAddToCart, removeFromCart as apiRemoveFromCart, applyCoupon as apiApplyCoupon, removeCoupon as apiRemoveCoupon} from '@jkawulok/prestashop-api';
 import { Product, Cart, CartItem, AddItemsToCartInput, RemoveItemFromCartInput } from './../types/GraphQlStorefront';
 import { ref, Ref } from '@vue/composition-api';
 
@@ -42,13 +42,13 @@ const params: UseCartFactoryParams<Cart, CartItem, Product, any> = {
     console.log('Mocked clearCart', currentCart);
     return currentCart;
   },
-  applyCoupon: async ({ currentCart, coupon }) => {
-    console.log('Mocked applyCoupon', currentCart);
-    return { updatedCart: currentCart, updatedCoupon: coupon };
+  applyCoupon: async ({ coupon }) => {
+    const updatedCart = await apiApplyCoupon(coupon);
+    return { updatedCart: updatedCart.data.cart, updatedCoupon: coupon };
   },
-  removeCoupon: async ({ currentCart }) => {
-    console.log('Mocked removeCoupon', currentCart);
-    return { updatedCart: currentCart, updatedCoupon: null };
+  removeCoupon: async () => {
+    const updatedCart = await apiRemoveCoupon();
+    return { updatedCart: updatedCart.data.cart, updatedCoupon: null };
   },
   isOnCart: ({ currentCart }) => {
     console.log('Mocked isOnCart', currentCart);

@@ -103,3 +103,12 @@ export const CartFragment = `
     }
   }
 `;
+
+export const CustomerFragment = `
+  fragment DefaultCustomer on Customer {
+    email
+    firstname
+    lastname
+    isAuthenticated
+  }
+`;
